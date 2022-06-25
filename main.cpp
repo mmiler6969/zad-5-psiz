@@ -95,7 +95,18 @@ int main()
     fwrite(&zdjecie.CUsed, sizeof(zdjecie.CUsed), 1, n);
     fwrite(&zdjecie.CImportant, sizeof(zdjecie.CImportant), 1, n);
     fseek(n, sizeof(Plik.fOffBits), SEEK_SET);
+  int bI;
+    for (int i = Plik.fOffBits; i < Plik.fSize; i++)
+    {
+        fseek(f, i, SEEK_SET);
+        fseek(n, i, SEEK_SET);
+        fread(&bI, 3, 1, f);
+        bI = INT_MAX - bI;
+        fwrite(&bI, 3, 1, n);
+    }
 
+    fclose(f);
+    fclose(n);
 
     return 0;
 }

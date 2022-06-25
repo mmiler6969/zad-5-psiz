@@ -1,17 +1,16 @@
 #include <iostream>
 
 using namespace std;
-    //Struktura kolor�w
-    struct kolor
-    {
-    char R;
-    char G;
-    char B;
-    } kolor;
 
-    //Struktura naglowek
-    struct naglowek
-    {
+struct PlikNaglowek {
+    short Type;
+    int Size;
+    short Reserved1;
+    short Reserved2;
+    int OffBits;
+} File;
+
+struct ZdjecieNaglowek {
     int Size;
     int Width;
     int Height;
@@ -21,21 +20,20 @@ using namespace std;
     int SizeImage;
     int XPelsPerMeter;
     int YPelsPerMeter;
-    int CUsed;
-    int CImportant;
-    } zdjecie;
+    int ClrUsed;
+    int ClrImportant;
+} Picture;
 
-    //Struktura naglowek plik
-    struct NaglowekPlik
-    {
-    short fType;
-    int fSize;
-    short fReserved1;
-    short fReserved2;
-    int fOffBits;
-    } Plik;
+struct KoloryRGB {
+    char R;
+    char G;
+    char B;
+} Rgb;
 int main()
 {
-    cout << "Hello world!" << endl;
+       //Otwieranie pliku
+    FILE* f = fopen(argv[], "rb");
+    if (f == nullptr){std::cout << "Error\n";}
+    else{std::cout << "File opened\n";}
     return 0;
 }

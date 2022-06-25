@@ -71,5 +71,31 @@ int main()
     std::cout << "Liczba kolorow: " << zdjecie.CUsed << "\n";
     fread(&zdjecie.CImportant, sizeof(zdjecie.CImportant), 1, f);
     std::cout << "Kolory w palecie: " << zdjecie.CImportant << "\n";
+      FILE* n = fopen("neg.bmp", "wb");
+    if (n == nullptr){std::cout << "Brak pliku\n\n";}
+    else{std::cout << "Plik otwarty\n\n";}
+
+        //obsluga pliku
+    fseek(n, 14, SEEK_SET);
+    fwrite(&Plik.fType, sizeof(Plik.fType), 1, n);
+    fwrite(&Plik.fSize, sizeof(Plik.fSize), 1, n);
+    fwrite(&Plik.fReserved1, sizeof(Plik.fReserved1), 1, n);
+    fwrite(&Plik.fReserved2, sizeof(Plik.fReserved2), 1, n);
+    fwrite(&Plik.fOffBits, sizeof(Plik.fOffBits), 1, n);
+    fseek(n, 14, SEEK_SET);
+    fwrite(&zdjecie.Size, sizeof(zdjecie.Size), 1, n);
+    fwrite(&zdjecie.Width, sizeof(zdjecie.Width), 1, n);
+    fwrite(&zdjecie.Height, sizeof(zdjecie.Height), 1, n);
+    fwrite(&zdjecie.Planes, sizeof(zdjecie.Planes), 1, n);
+    fwrite(&zdjecie.BitCount, sizeof(zdjecie.BitCount), 1, n);
+    fwrite(&zdjecie.Compression, sizeof(zdjecie.Compression), 1, n);
+    fwrite(&zdjecie.SizeImage, sizeof(zdjecie.SizeImage), 1, n);
+    fwrite(&zdjecie.XPelsPerMeter, sizeof(zdjecie.XPelsPerMeter), 1, n);
+    fwrite(&zdjecie.YPelsPerMeter, sizeof(zdjecie.YPelsPerMeter), 1, n);
+    fwrite(&zdjecie.CUsed, sizeof(zdjecie.CUsed), 1, n);
+    fwrite(&zdjecie.CImportant, sizeof(zdjecie.CImportant), 1, n);
+    fseek(n, sizeof(Plik.fOffBits), SEEK_SET);
+
+
     return 0;
 }
